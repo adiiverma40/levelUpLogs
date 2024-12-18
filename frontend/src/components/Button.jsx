@@ -2,7 +2,7 @@ import React from "react";
 
 function Button({
   children,
-  type = "Button",
+  type = "submit",
   className = "",
   onClick,
   ...props
