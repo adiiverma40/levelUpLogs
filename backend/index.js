@@ -2,7 +2,7 @@ import e from "express"
 import { configDotenv } from "dotenv"
 import connectDB from "./Database/Connectdb.js"
 import cors from "cors"
-import { createUser } from "./Database/Controller/User.Controller.js"
+import { checkUser, createUser } from "./Database/Controller/User.Controller.js"
 configDotenv()
 
 const app = e()
@@ -21,9 +21,11 @@ app.get('/', (req , res)=>{
 app.post('/api/signup', async (req, res)=>{
     console.log(req.body );
     await createUser(req , res)
-    
-    
+})
 
+app.post('/api/login', async (req, res)=>{
+    console.log(req.body);
+    await checkUser(req, res)
     
 })
 

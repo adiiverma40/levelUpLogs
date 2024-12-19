@@ -1,45 +1,61 @@
 import React, { useState } from "react";
 import { Button, Container, Input } from "../components";
-import { data, NavLink } from "react-router-dom";
+import { data, NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios, { Axios } from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../Store/Slices/UserSlice";
 function SignUp() {
   const [buttonClicked, SetButtonClicked] = useState("Sign Up");
   const [toggleButton, setToggelButton] = useState(false);
   const { register, handleSubmit } = useForm();
-  const [errorMessage , setErrorMessage] = useState('')
-  // async function createUser(Data) {
-  //   console.log("in fn");
-  //   console.log(Data);
-  //   const promise = await axios.post("http://localhost:3000/api/signup", Data);
-  //   setErrorMessage(promise.response.data.message)
-  //   setErrorMessage(promise.message)
-  // }
+  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
   async function createUser(Data) {
     try {
       console.log("in fn");
       console.log(Data);
-  
+
       // Make API call
-      const response = await axios.post("http://localhost:3000/api/signup", Data);
-  
+      const response = await axios.post(
+        "http://localhost:3000/api/signup",
+        Data
+      );
+
       // Handle success
       console.log("User created:", response.data);
+      dispatch(
+        login({
+          name: response.data.newUser.name,
+          email: response.data.newUser.email,
+          currentWeight: response.data.newUser.currentWeight,
+          DOB: response.data.newUser.DOB,
+          id: response.data.newUser._id,
+          isLoggedIn:true
+        })
+      );
+      navigate('/')
       setErrorMessage("User created successfully!"); // Optional success message
     } catch (error) {
       // Handle error response
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         setErrorMessage(error.response.data.message); // Set API error message
       } else if (error.request) {
         // Network error: No response received from server
-        setErrorMessage("Network error: Unable to reach the server. Please try again later.");
-      }else {
+        setErrorMessage(
+          "Network error: Unable to reach the server. Please try again later."
+        );
+      } else {
         setErrorMessage("Something went wrong. Please try again."); // Generic error
       }
       console.error("Error creating user:", error);
     }
   }
-  
 
   const onButtonClick = () => {
     if (!toggleButton) {
@@ -91,11 +107,13 @@ function SignUp() {
                 type={"date"}
               />
               {/* <button type="submit">click here</button> */}
-              <Button type={'submit'} onClick={onButtonClick}>
+              <Button type={"submit"} onClick={onButtonClick}>
                 {buttonClicked}
               </Button>
               <br />
-              <span className="font-semibold text-red-500 text-sm">{errorMessage}</span>
+              <span className="font-semibold text-red-500 text-sm">
+                {errorMessage}
+              </span>
             </div>
           </form>
         </div>
