@@ -16,7 +16,15 @@ function Login() {
     try {
     console.log(data);
     //API call
-    const response = await axios.post("http://localhost:3000/api/login" , data)
+    // const response = await axios.post("http://localhost:3000/api/login" , data)
+    const response = await axios.post(
+      "http://localhost:3000/api/login", 
+      data, 
+      {
+        withCredentials: true, // This will send cookies with the request
+      }
+    );
+
     console.log(response);
     dispatch(
       login({
@@ -25,6 +33,7 @@ function Login() {
         currentWeight: response.data.userData.currentWeight,
         DOB: response.data.userData.DOB,
         id: response.data.userData._id,
+        accesToken: response.data.accessToken,
         isLoggedIn:true
       })
     );

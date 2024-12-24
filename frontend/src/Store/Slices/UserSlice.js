@@ -6,7 +6,8 @@ const initialState ={
     currentWeight : 0 ,
     DOB : 0,
     id: 0 ,
-    isLoggedIn : false
+    isLoggedIn : false,
+    accessToken : ''
 }
 
 const userSlice = createSlice({
@@ -19,6 +20,7 @@ const userSlice = createSlice({
             state.currentWeight = action.payload.currentWeight
             state.DOB = action.payload.DOB
             state.id = action.payload.id
+            state.accessToken = action.payload.accessToken
             state.isLoggedIn = true
         },
         logout(state){

@@ -4,12 +4,10 @@ import {useSelector} from "react-redux"
 function Header() {
   const selector = useSelector((state) => state.user)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  console.log(selector);
-
   useEffect(()=>{
     if(selector.isLoggedIn){
       setIsLoggedIn(true)
-      console.log("true");
+   
       
     }
     else{
