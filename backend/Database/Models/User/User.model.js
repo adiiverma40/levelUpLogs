@@ -22,7 +22,11 @@ const userSchema = new mongoose.Schema(
         currentWeight : {
             type : Number,
             required : true
-        }
+        },
+        profileImage : {
+            type : String,
+            default : "https://placehold.co/600x400"
+        },
     }
 )
 

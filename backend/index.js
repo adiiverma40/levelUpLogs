@@ -4,8 +4,8 @@ import connectDB from "./Database/Connectdb.js"
 import cors from "cors"
 import { checkUser, createUser } from "./Database/Controller/User.Controller.js"
 import cookieParser from "cookie-parser"
-
-import {checkUserAuth} from "./Middleware/JWT.middleware.js"
+import upload from "./Middleware/Cloudinary.middleware.js"
+import {checkUserAuth, clearRefreshCookie} from "./Middleware/JWT.middleware.js"
 
 
 configDotenv()
@@ -20,6 +20,8 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.use(e.json())
 app.use(cookieParser())
+
+//configuring multer 
 
 
 
@@ -43,6 +45,16 @@ app.get('/protected' ,  (req , res , next)=>{
     
 })
 
+app.post('/api/upload',upload.single('image') , (req , res) =>{
+    console.log("in upload route");
+        if (!req.file) {
+        return res.status(400).send({ message: 'No file uploaded.' });
+    }
+    res.send({
+        message: 'File uploaded successfully!',
+        fileUrl: req.file.path, // URL of the uploaded file in Cloudinary
+    });
+})
 
 app.post('/api/login', async (req, res)=>{
     console.log(req.body);
@@ -51,7 +63,13 @@ app.post('/api/login', async (req, res)=>{
     
 })
 
-
+app.get('/api/logout' ,  (req , res , next)=>{
+    console.log("in logout route");
+    clearRefreshCookie(req, res, next)
+    
+     
+ })
+ 
 
 
 

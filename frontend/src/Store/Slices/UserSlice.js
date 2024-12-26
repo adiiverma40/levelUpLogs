@@ -7,7 +7,8 @@ const initialState ={
     DOB : 0,
     id: 0 ,
     isLoggedIn : false,
-    accessToken : ''
+    accessToken : '',
+    profileImage : ''
 }
 
 const userSlice = createSlice({
@@ -23,8 +24,11 @@ const userSlice = createSlice({
             state.accessToken = action.payload.accessToken
             state.isLoggedIn = true
         },
+        profileImage(state , action){
+            state.profileImage = action.payload
+        },
         logout(state){
-            state.name = ''
+            state.name = 'adfghiufdsbiuydswfgipubdfgisuabdfghi;sugdsfibhu'
             state.email = ''
             state.currentWeight = 0
             state.DOB = 0
@@ -34,6 +38,6 @@ const userSlice = createSlice({
     }
 })
 
-export const {login , logout }= userSlice.actions
+export const {login , logout , profileImage }= userSlice.actions
 
 export default userSlice.reducer

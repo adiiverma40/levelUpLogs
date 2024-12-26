@@ -7,7 +7,7 @@ async function createUser(req, res) {
   try {
     console.log("in Sign Up");
 
-    const { name, email, password, DOB, currentWeight } = req.body;
+    const { name, email, password, DOB, currentWeight , profileImage } = req.body;
     console.log(name, email, password, DOB, currentWeight);
 
     // Check if all required fields are provided
@@ -26,6 +26,7 @@ async function createUser(req, res) {
       password: hashedPassword,
       DOB,
       currentWeight,
+      profileImage
     });
     console.log("sending res");
 

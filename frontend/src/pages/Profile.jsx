@@ -1,10 +1,11 @@
 import React from 'react';
-
+import {Container} from "../components/index.js"
 function Profile() {
   return (
-    <div>
-      Content
-    </div>
+    <Container flex={false}>
+          
+    </Container>
+      
   );
 }
 

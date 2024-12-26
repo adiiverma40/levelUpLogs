@@ -23,4 +23,16 @@ async function checkUserAuth(req, res, next) {
     
 }
 
-export  {checkUserAuth }
+
+async function clearRefreshCookie(req, res, next) {
+    console.log("in clearRefreshCookie");
+    res.clearCookie('refreshToken')
+    res.status(200).send({message: 'Refresh token cleared'})
+    next()
+    
+}
+
+
+
+
+export  {checkUserAuth , clearRefreshCookie}

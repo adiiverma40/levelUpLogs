@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { login } from "../Store/Slices/UserSlice";
+import { login, profileImage } from "../Store/Slices/UserSlice";
 function Login() {
   const [buttonClicked, SetButtonClicked] = useState("Login");
   const [toggleButton, setToggelButton] = useState(false);
@@ -37,6 +37,7 @@ function Login() {
         isLoggedIn:true
       })
     );
+    dispatch(profileImage(response.data.userData.profileImage))
     navigate('/') 
   } catch (error) {
     if (
