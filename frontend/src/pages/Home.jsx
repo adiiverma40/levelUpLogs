@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Container } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../Store/Slices/UserSlice";
+import { login , profileImage } from "../Store/Slices/UserSlice";
 import axios from "axios";
 function Home() {
   const selector = useSelector((state) => state.user);
@@ -27,6 +27,7 @@ function Home() {
             isLoggedIn: true,
           })
         );
+        dispatch(profileImage({ profileImage: response.data.userData.profileImage }));
       }
     } catch (error) {
       console.log(error);

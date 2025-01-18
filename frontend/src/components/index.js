@@ -4,4 +4,5 @@ import Container from "./Container";
 import Input from "./Input";
 import Button from "./Button";
 import UploadImage from "./UploadImage";
-export {Header , Footer , Container , Input , Button , UploadImage}
+import UpdateInfo from "./UpdateInfo";
+export {Header , Footer , Container , Input , Button , UploadImage , UpdateInfo}
